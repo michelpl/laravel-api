@@ -13,6 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/', function(){
+           return 'Retornar lista de usuários';
+        });
+
+        Route::post('', function(){
+            return 'Post no usuário';
+        });
+
+        Route::get('{id}', function($id){
+            return 'Retornar usuário pelo id:' . $id;
+        });
+
+        Route::put('{id}', function($id){
+            return 'Put no usuário:' . $id;
+        });
+    });
 });
