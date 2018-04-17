@@ -18,23 +18,44 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/', function () {
-    return 'Laravel API';
+    return '
+██╗      █████╗ ██████╗  █████╗ ██╗   ██╗███████╗██╗          █████╗ ██████╗ ██╗
+██║     ██╔══██╗██╔══██╗██╔══██╗██║   ██║██╔════╝██║         ██╔══██╗██╔══██╗██║
+██║     ███████║██████╔╝███████║██║   ██║█████╗  ██║         ███████║██████╔╝██║
+██║     ██╔══██║██╔══██╗██╔══██║╚██╗ ██╔╝██╔══╝  ██║         ██╔══██║██╔═══╝ ██║
+███████╗██║  ██║██║  ██║██║  ██║ ╚████╔╝ ███████╗███████╗    ██║  ██║██║     ██║
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝     ╚═╝';
 });
-
 
 Route::prefix('/products')->group(function () {
 
+    Route::post('/', function (Request $request) {
+        return response(
+            [
+                'id' => 15,
+                'name' => $request->name,
+                'description' => $request->description
+
+            ],
+            201
+        );
+    });
+
+
     Route::get('/', function () {
         return [
-            15 => [
+            [
+                'id' => 15,
                 'name' => 'Iphone',
-                'description' => "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam.."
+                'description' => "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a name"
             ],
-            17 => [
+            [
+                'id' => 7,
                 'name' => 'Canon 110',
                 'description' => "Canon's press material for the EOS 5D states that it defines (a) new D-SLR category"
             ],
-            35 => [
+            [
+                'id' => 11,
                 'name' => 'Nikon D300',
                 'description' => "Engineered with pro-level features and performance, the 12.3-effective-megapixel D300 combines brand"
             ]
@@ -43,28 +64,29 @@ Route::prefix('/products')->group(function () {
 
     Route::get('{id}', function ($id) {
         $products = [
-            15 => [
+            [
+                'id' => 15,
                 'name' => 'Iphone',
-                'description' => "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam.."
+                'description' => "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a name"
             ],
-            17 => [
+            [
+                'id' => 7,
                 'name' => 'Canon 110',
                 'description' => "Canon's press material for the EOS 5D states that it defines (a) new D-SLR category"
             ],
-            35 => [
+            [
+                'id' => 11,
                 'name' => 'Nikon D300',
                 'description' => "Engineered with pro-level features and performance, the 12.3-effective-megapixel D300 combines brand"
             ]
         ];
 
-        return $products[$id] ?? response('', 404);
+        foreach ($products as $product) {
+            if (isset($product['id']) && $product['id'] == $id) {
+                return $product;
+            }
+        }
+
+        return response('', 404);
     });
 });
-
-/*Route::get('/', function (Request $request){
-    return ['A', 'B'];
-});
-
-Route::post('/', function (Request $request){
-    return ['A', 'B'];
-});*/
