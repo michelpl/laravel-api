@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return $this->product->all();
     }
 
     /**
@@ -54,9 +54,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($productId)
     {
-        //
+        return $this->product->find($productId);
     }
 
     /**
@@ -77,9 +77,13 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update($productId, Request $request)
     {
-        //
+        $this->product = $this->product->find($productId);
+        $this->product->fill($request->all());
+        $this->product->save();
+
+        return response($this->product, 200);
     }
 
     /**
