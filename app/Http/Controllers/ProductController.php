@@ -42,6 +42,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (strlen($request->description) >= 500) {
+            return response("Invalid request: the description length must me below 500", 400);
+        }
+
         $this->product->fill($request->all());
         $this->product->save();
 
