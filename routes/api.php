@@ -27,4 +27,4 @@ Route::get('/', function () {
 ╚═╝      ╚═════╝ ╚══════╝   ╚═╝   ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═╝     ╚═╝';
 });
 
-Route::resource('products', 'ProductController');
+Route::apiResource('products', 'ProductController');
